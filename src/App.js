@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
 function App() {
-  
+
   const [count, setCount] = useState(0);
+  const date = new Date(milliseconds);
+  console.log(date)
 
   useEffect(() => {
     const intervel = setInterval(() => {
@@ -13,9 +15,13 @@ function App() {
     };
   }, []);
 
+ 
+
   return (
     <>
-      <div className="text-blue-600">{count}</div>
+    <div className="">
+      <div className="text-blue-600 items-center justify-center text-center">{count}</div>
+    </div>
     </>
   );
 }
