@@ -25,7 +25,7 @@ useEffect(() => {
       clearInterval(interval);
     };
   
-  }, [targetDate]);
+  }, []);
  
   const formatDifference = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
