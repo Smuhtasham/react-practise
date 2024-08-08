@@ -1,48 +1,37 @@
 import { useEffect, useState } from "react";
 
 function App() {
+  const [count, setCount] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const [count, setCount] = useState(0);
-  const [difference,setDifference] = useState(0);
+  const url = "https://randomuser.me/api?results=50";
 
-  const targetDate = new Date("2024-08-08");
-
-  
-useEffect(() => {
-
-    const calculateDifference = () => {
-      const now = new Date();
-      const timeDifference = targetDate - now;
-      setDifference(timeDifference);
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      const res = await fetch(url);
+      const data = await res.json();
+      setCount(data);
+      setLoading(false);
     };
-
-    const interval = setInterval(() => {
-      setCount((prev) => prev + 1);
-      calculateDifference();
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  
+    getData();
   }, []);
- 
-  const formatDifference = (milliseconds) => {
-    const totalSeconds = Math.floor(milliseconds / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    return `${hours}h ${minutes}m ${seconds}s`;
-  };
 
   return (
     <>
-    <div className="">
-    <div className=" text-blue-600 items-center justify-center text-center">{count}</div>
-      <div className="text-blue-600 items-center justify-center text-center">
-        Time until target date: {formatDifference(difference)}
+      <div className="">
+        <div className=" text-black">
+          <div>
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              count.results.map((data) => {
+                return <div>{data.name.first}</div>;
+              })
+            )}
+          </div>
+        </div>
       </div>
-    </div>
     </>
   );
 }
