@@ -16,7 +16,7 @@ function App() {
     };
     getData();
   }, []);
-
+  console.log(count)
   return (
     <>
       <div className="">
@@ -25,8 +25,11 @@ function App() {
             {loading ? (
               <p>Loading...</p>
             ) : (
-              count.results.map((data) => {
-                return <div>{data.name.first}</div>;
+              count?.results?.map((data,index) => {
+                return <div key={index} className="flex gap-6">
+                  <div>{data.name.first}</div>
+                  <div>{data.email}</div>
+                  </div>
               })
             )}
           </div>
