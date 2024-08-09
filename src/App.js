@@ -2,37 +2,49 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [small, setSmall] = useState(false);
-  const [day, setDay] = useState(true);
   const [stars, setStars] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", () => {
-        setDay(window.scrollY > 0 && window.scrollY < 150);
-        setSmall(window.scrollY > 150);
-        setStars(window.scrollY > 260);
-      });
-      return () => {
-        setDay(false);
-      };
-    }
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+
+      setSmall(scrollY > 100);
+      setStars(scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
-  console.log(small);
-  return (  
+
+  return (
     <>
-      <div className={`h-[500px] bg-black`}>
-        <div className={`${day ? "" : "hidden"}`}>
-          <img src="pic0.jpg" alt="" />
+      <div className="relative h-[700px] overflow-hidden">
+        {/* Background Image */}
+        <div className="fixed top-0 left-0 w-full h-screen bg-cover bg-center z-0">
+          <img src="pic0.jpg" alt="" className="w-full h-full object-cover" />
         </div>
-        <div className={`transition translate-y-6 ease-in-out delay-1000 ${small ? "absolute " : "hidden"}`}>
+
+        {/* Overlay Images */}
+        <div className={`relative z-10 slide-in-up ${small ? "show" : ""}`}>
           <img className="h-[750px]" src="pic1.jpg" alt="" />
         </div>
-        <div className={` ${stars ? "absolute top-[30%] " : "hidden"}`}>
-            <img className="w-[450px]" src="stars.gif" alt="" />
-          </div>
-        <div className={` ${stars ? "absolute left-[60%] top-[30%]" : "hidden"}`}>
-            <img className="w-[450px]" src="stars.gif" alt="" />
-          </div>
+        <div
+          className={`absolute top-[30%] left-[10%] z-20 fade-in-up ${
+            stars ? "show" : ""
+          }`}
+        >
+          <img className="w-[450px]" src="stars.gif" alt="" />
+        </div>
+        <div
+          className={`absolute top-[30%] left-[60%] z-20 fade-in-up ${
+            stars ? "show" : ""
+          }`}
+        >
+          <img className="w-[450px]" src="stars.gif" alt="" />
+        </div>
       </div>
     </>
   );
