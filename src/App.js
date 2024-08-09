@@ -1,12 +1,12 @@
 import useFetch from "./useFetch";
 
 function App() {
- const {data,loading} = useFetch("https://randomuser.me/api/?results=10")
+ const data = useFetch("https://randomuser.me/api/?results=10")
   console.log(data)
   return (
     <>
       <div className="text-black">
-      {loading ? (
+      {false ? (
               <p>Loading...</p>
             ) : (
               data?.results?.map((data) => {
