@@ -1,15 +1,18 @@
 import useFetch from "./useFetch";
 
 function App() {
- const api = useFetch("https://randomuser.me/api/?results=10")
- 
-  
+ const {data,loading} = useFetch("https://randomuser.me/api/?results=10")
+  console.log(data)
   return (
     <>
       <div className="text-black">
-              {api?.results?.map((data, index) => {
-                return <div key={index}>{data.name.first}</div>
-              })}
+      {loading ? (
+              <p>Loading...</p>
+            ) : (
+              data?.results?.map((data) => {
+                return <div>{data.name.first}</div>;
+              })
+            )}
           </div>
     </>
   );
