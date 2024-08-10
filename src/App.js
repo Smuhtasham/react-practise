@@ -1,24 +1,28 @@
-import useFetch from "./useFetch";
+import { useState } from "react";
 
 function App() {
-  const [data, loading, error] = useFetch(
-    "https://randomuser.me/api/?results=10"
-  );
-  console.log(data);
+  const [scroll, setScroll] = useState("");
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+  const text = document.getElementById("moon");
+
+  window.addEventListener("scroll", () => {
+    let val = window.scrollY;
+    let top = val * 2 + "px";
+    setScroll(top);
+
+  });
+console.log(scroll)
+  // let val = window.scrollY;
+  // let scroll = val * 2 +'px';
+
+  // console.log(scroll);
+
   return (
     <>
-      <div className="text-black">
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          data?.results?.map((data) => {
-            return <div>{data.name.first}</div>;
-          })
-        )}
+      <div className="bg-black h-[700px] ">
+        <div className={`flex left-[500px] absolute top-[${scroll}]`}>
+          <img className=" w-[100px]" src="moon.png" alt="" />
+        </div>
       </div>
     </>
   );
