@@ -1,52 +1,45 @@
-import { useEffect, useState } from "react";
+import React, { useRef } from "react";
 
-function App() {
-  const [scroll, setScroll] = useState(0);
-  const [scale, setScale] = useState(2.40667);
-
-  useEffect(() => {
-
-    const scrollFunction = () => {
-      let val = window.scrollY;
-      let top = val * 1.2;
-      let finaltop = Math.floor(top);
+const App = () => {
   
-      if (finaltop <= 400) {
-        setScroll(finaltop);
-      } else {
-        setScroll(400);
-        setScale(finaltop / 150);
-      }
-    };
+  const Vid = useRef(null);
 
-    window.addEventListener("scroll", scrollFunction);
+  const playVid = () => {
+    if (Vid.current) {
+      Vid.current.play();
+    }
+  };
+  const pauseVid = () => {
+    if (Vid.current) {
+      Vid.current.pause();
+    }
+  };
+  const ahead = (time) => {
+    if (Vid.current) {
+      Vid.current.currentTime = time;
+    }
+  };
 
-    return () => {
-      window.removeEventListener("scroll", scrollFunction);
-    };
-  }, [scroll,scale]);
-
-
- 
 
 
   return (
     <>
-      <div className="bg-black relative h-[200vh] overflow-hidden">
-        <img
-          style={{
-            bottom: scroll === 400 ? "auto" : `${scroll}px`,
-            transform: `scale(${scale})`,
-            position: scroll === 400 ? "fixed" : "absolute",
-            top: scroll === 400 ? "245px" : "auto",
-          }}
-          className="w-[120px] h-[100px] left-[550px]"
-          src="moon.png"
-          alt="Moon"
-        />
+      <div className="w-[100vh] m-auto">
+        <video className="w-[600px]" ref={Vid} src="video.mp4"></video>
+      </div>
+      <div className="flex justify-center gap-2">
+        <button onClick={playVid} className="bg-slate-400 mt-2 px-4 py-1 rounded-lg">
+          Play
+        </button>
+        <button onClick={pauseVid} className="bg-slate-400 mt-2 px-4 py-1 rounded-lg">
+          Pause
+        </button>
+        <button onClick={() => ahead(10)} className="bg-slate-400 mt-2 px-4 py-1 rounded-lg">
+          10+
+        </button>
       </div>
     </>
   );
-}
+};
 
 export default App;
