@@ -1,41 +1,59 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './input.css';
 
 const App = () => {
-  const [scroll, setScroll] = useState(0);
+  const [data, setData] = useState([]);
+  const [show, setShow] = useState(30);
+  const [loading, setLoading] = useState(false);
 
-  const boxRefs = useRef(null);
+  const scrollRef = useRef(null);
+
+  const url = "https://randomuser.me/api/?results=500";
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScroll(window.scrollY);
+    const getData = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(url);
+        const result = await res.json();
+        setData(result);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
     };
+    getData();
+  }, [url]);
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); 
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      if (scrollRef.current.scrollTop + scrollRef.current.clientHeight >= scrollRef.current.scrollHeight - 5) {
+        if (show < data.results.length) {
+          setShow(show + 30);
+        }
+      }
+    }
+  };
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.addEventListener('scroll', handleScroll);
+      return () => {
+        scrollRef.current.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [data, show]);
 
-console.log(scroll)
   return (
-    <>
-      <div className='box w-[100%] h-[100vh] py-10 text-center border-2 border-black bg-slate-400'>
-        Box 1
-      </div>
-      <div className='box w-[100%] h-[100vh] py-10 text-center border-2 border-black bg-emerald-400'>
-        Box 2
-      </div>
-      <div className='box w-[100%] h-[100vh] py-10 text-center border-2 border-black bg-lime-400'>
-        Box 3
-      </div>
-      <div
-        ref={boxRefs}
-        className={`box h-[100vh] w-[100%] py-10 text-center border-2 border-black bg-amber-400 ${scroll>1900 ? 'in-view' : ''}`}
-      >
-        Box 4
-      </div>
-    </>
+    <div
+      ref={scrollRef}
+      style={{ height: '595px', overflowY: 'scroll' }}
+    >
+      {data?.results?.slice(0, show).map((user, index) => (
+        <div key={index} className='p-2'>{user.name.first}</div>
+      ))}
+      {loading && <div>Loading...</div>}
+    </div>
   );
 };
 
