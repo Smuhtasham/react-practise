@@ -6,7 +6,7 @@ import Signup from "./components/Signup";
 const App = () => {
   return (
     <>
-      <div className="bg-slate-300 h-[100vh]">
+      <div className="bg-white h-[100vh]">
         <div className="flex flex-col items-center justify-center py-10">
           <Routes>
             <Route path="/" element={<Login />} />

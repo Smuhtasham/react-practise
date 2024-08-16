@@ -47,11 +47,11 @@ const Signup = () => {
   return (
     <>
       <div className="py-2">
-        <span className="text-2xl">Signup Form</span>
+        <span className="text-2xl font-bold">Signup Form</span>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-2 border-2 border-black w-[400px] rounded-lg py-2 px-2">
+        <div className="flex flex-col gap-2 border-2 border-black bg-slate-300 w-[400px] rounded-lg py-6 px-6">
           <label htmlFor="firstName">First Name:</label>
           <div>
             <input

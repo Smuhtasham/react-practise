@@ -31,11 +31,11 @@ const Login = () => {
   return (
     <>
       <div className="py-2">
-        <span className="text-2xl">Login form</span>
+        <span className="text-2xl font-bold">Login form</span>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-2 border-2 w-[400px] border-black rounded-lg py-2 px-2">
+        <div className="flex flex-col gap-2 border-2 w-[400px] bg-slate-300 border-black rounded-lg py-6 px-6">
           <label htmlFor="email">Email</label>
           <div>
             <input
