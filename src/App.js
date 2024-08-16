@@ -1,13 +1,21 @@
-import React from 'react'
-import Comp from './components/Comp'
-import HOC from './components/HOC'
+import React from "react";
+import Login from "./components/Login";
+import { Link, Route, Routes } from "react-router-dom";
+import Signup from "./components/Signup";
 
 const App = () => {
   return (
     <>
-    <HOC comp={Comp} />
+      <div className="bg-slate-300 h-[100vh]">
+        <div className="flex flex-col items-center justify-center py-10">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/Signup" element={<Signup />} />
+          </Routes>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
