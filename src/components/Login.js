@@ -38,7 +38,9 @@ const Login = ({ setIsAuthenticated }) => {
     try {
       if (user && userData && userData.email === user.email && userData.password === user.password) {
         navigate("/main");
+        const status= true;
         setIsAuthenticated(true);
+        localStorage.setItem('status',status)
       } else {
         setError("Invalid credentials");
       }
@@ -55,7 +57,7 @@ const Login = ({ setIsAuthenticated }) => {
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onChange", 
+    mode: "onBlur", 
   });
 
   const onSubmit = (data) => setUserData(data);

@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Error from "./components/Error";
+import { boolean } from "yup";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState();
 
-  useEffect(() => {
-    const checkAuthStatus = () => {
-      setIsAuthenticated(false);
-    };
-
-    checkAuthStatus();
+  useLayoutEffect(() => {
+    const m = localStorage.getItem("status");
+    setIsAuthenticated(m);
+    console.log(m)
   }, []);
 
   return (
@@ -26,7 +25,7 @@ const App = () => {
           />
           <Route
             path="/main"
-            element={isAuthenticated ? <Main /> : <Navigate to="/" />}
+            element={isAuthenticated ? <Main /> : <Login />}
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/*" element={<Error />} />
