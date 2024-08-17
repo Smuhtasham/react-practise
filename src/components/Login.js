@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -16,7 +16,39 @@ const schema = yup.object().shape({
     .required("Password is required"),
 });
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [userData, setUserData] = useState();
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('data');
+    if (storedData) {
+      setUser(JSON.parse(storedData));
+    }
+  }, []);
+
+  const getData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      if (user && userData && userData.email === user.email && userData.password === user.password) {
+        navigate("/main");
+        setIsAuthenticated(true);
+      } else {
+        setError("Invalid credentials");
+      }
+    } catch (error) {
+      setError(error.message || "An unknown error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const {
     register,
     handleSubmit,
@@ -26,7 +58,7 @@ const Login = () => {
     mode: "onChange", 
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => setUserData(data);
 
   return (
     <>
@@ -58,12 +90,14 @@ const Login = () => {
             type="submit"
             className="bg-black py-1 px-2 text-white disabled:opacity-50"
             disabled={!isValid}
+            onClick={getData}
           >
             Login
           </button>
         </div>
       </form>
-
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
       <div>
         Create an account!{" "}
         <span className="font-bold">

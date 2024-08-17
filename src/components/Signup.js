@@ -39,10 +39,13 @@ const Signup = () => {
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onBlur", // This will trigger validation when the input field loses focus
+    mode: "onBlur",
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    localStorage.setItem("data", JSON.stringify(data));
+  };
 
   return (
     <>
