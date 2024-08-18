@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -17,7 +16,6 @@ const schema = yup.object().shape({
 });
 
 const Login = ({ setIsAuthenticated }) => {
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [userData, setUserData] = useState();
@@ -25,7 +23,7 @@ const Login = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedData = localStorage.getItem('data');
+    const storedData = localStorage.getItem("data");
     if (storedData) {
       setUser(JSON.parse(storedData));
     }
@@ -36,11 +34,16 @@ const Login = ({ setIsAuthenticated }) => {
     setError(null);
 
     try {
-      if (user && userData && userData.email === user.email && userData.password === user.password) {
+      if (
+        user &&
+        userData &&
+        userData.email === user.email &&
+        userData.password === user.password
+      ) {
         navigate("/main");
-        const status= true;
+        const status = true;
         setIsAuthenticated(true);
-        localStorage.setItem('status',status)
+        localStorage.setItem("status", status);
       } else {
         setError("Invalid credentials");
       }
@@ -57,7 +60,7 @@ const Login = ({ setIsAuthenticated }) => {
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onBlur", 
+    mode: "onBlur",
   });
 
   const onSubmit = (data) => setUserData(data);
