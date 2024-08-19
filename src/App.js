@@ -7,17 +7,20 @@ import Error from "./components/Error";
 import { boolean } from "yup";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState();
 
-  useLayoutEffect(() => {
-    const m = localStorage.getItem("status");
-    setIsAuthenticated(m);
-    console.log(m)
-  }, []);
+
+
+  // const [isAuthenticated, setIsAuthenticated] = useState();
+
+  // useLayoutEffect(() => {
+  //   const m = localStorage.getItem("status");
+  //   setIsAuthenticated(m);
+  //   console.log(m);
+  // }, []);
 
   return (
     <div className="bg-white h-[100vh]">
-      <div className="flex flex-col items-center justify-center py-10">
+      {/* <div className="flex flex-col items-center justify-center py-10">
         <Routes>
           <Route
             path="/"
@@ -30,7 +33,12 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/*" element={<Error />} />
         </Routes>
-      </div>
+      </div> */}
+
+
+
+
+      
     </div>
   );
 };
