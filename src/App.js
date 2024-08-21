@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Error from "./components/Error";
 import { boolean } from "yup";
-import Counter from "./components/counter";
+import Counter from "./components/Counter";
 
 
 
