@@ -3,7 +3,7 @@ import { useGetAllPostQuery } from './Services/Post'
 
 const App = () => {
 
-const apiData = useGetAllPostQuery();
+const apiData = useGetAllPostQuery(50);
 console.log(apiData)
 if(apiData.isLoading) return <div>Loading....</div>
 if(apiData.isError) return <div>Error Occured......</div>
