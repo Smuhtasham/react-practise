@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Error from "./components/Error";
 import { boolean } from "yup";
 import Counter from "./components/Counter";
+import Data from "./components/Data";
 
 
 
@@ -24,24 +25,22 @@ const App = () => {
 
   return (
     <div className="bg-white h-[100vh]">
-      {/* <div className="flex flex-col items-center justify-center py-10">
+      <div className="flex flex-col items-center justify-center py-10">
         <Routes>
-          <Route
+          {/* <Route
             path="/"
             element={<Login setIsAuthenticated={setIsAuthenticated} />}
           />
           <Route
             path="/main"
             element={isAuthenticated ? <Main /> : <Login />}
-          />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/*" element={<Error />} />
+          /> */}
+           <Route path="/" element={<Counter />} />
+           <Route path="/data" element={<Data />} />
+          {/* <Route path="/signup" element={<Signup />} />
+          <Route path="/*" element={<Error />} /> */}
         </Routes>
-      </div> */}
-      <Counter />
-
-
-
+      </div>
 
     </div>
   );
