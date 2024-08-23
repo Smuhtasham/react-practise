@@ -3,12 +3,12 @@ import { createApi, fet, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const postApi = createApi({
   reducerPath: "postApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://randomuser.me/api/",
+    baseUrl: "https://randomuser.me/api/?page=3&results=50&seed=abc",
   }),
   endpoints: (builder) => ({
     getAllPost: builder.query({
-      query: (number) => ({
-        url: `?results=${number}`,
+      query: () => ({
+        url: ``,
         method: "GET",
       }),
       
