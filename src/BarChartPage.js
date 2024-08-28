@@ -1,52 +1,30 @@
 import React from 'react'
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 
 
 const BarChartPage = () => {
+
+  const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
     
   const data = [
     {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
+      name: "Australia",
+      win: 45,
     },
     {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
+      name: "India",
+      win: 36,
     },
     {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
+      name: "Pakistan",
+      win: 56,
     },
     {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
+      name: "Sirilanka",
+      win: 24,
+    
     },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
+   
   ];
 
   return (
@@ -55,14 +33,15 @@ const BarChartPage = () => {
       <h2 className="font-bold text-center pb-10 text-3xl">Bar Chart</h2>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          width={500}
-          height={300}
+          width={900}
+          height={200}
           data={data}
+          barSize={50}
           margin={{
-            top: 5,
+            top: 10,
             right: 30,
-            left: 20,
-            bottom: 5,
+            left: 30,
+            bottom: 25,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -70,9 +49,12 @@ const BarChartPage = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-          <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-        </BarChart>
+          <Bar dataKey="win" fill="#8884d8" label={{ position: 'top' }}>
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={colors[index % 20]} />
+        ))}
+      </Bar>
+                 </BarChart>
       </ResponsiveContainer>
     </div>
     </>
